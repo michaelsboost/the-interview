@@ -1,0 +1,36 @@
+{
+  "theme_color": "#d9e0e5",
+  "background_color": "#d9e0e5",
+  "display": "standalone",
+  "start_url": "./index.html",
+  "lang": "en-US",
+  "name": "The Interview",
+  "short_name": "The Interview",
+  "description": "The Interview is a card game that helps you practice serious questions for job interviews, first dates, college applications, landlord meetings, and more—safe practice for real-life conversations.",
+  "icons": [
+    {
+      "src": "./imgs/logo-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "./imgs/logo-256x256.png",
+      "sizes": "256x256",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "./imgs/logo-384x384.png",
+      "sizes": "384x384",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "./imgs/logo-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}

@@ -1,0 +1,116 @@
+<main class="container-fluid grid grid-cols-1 gap-4" x-data="cardGame()">
+  <header class="text-center py-4">
+    <h1 class="text-4xl font-bold font-brand text-[#2a86f4]">
+      <a class="text-current no-underline"
+         href="https://github.com/michaelsboost/the-interview"
+         target="_blank">The Interview</a>
+    </h1>
+    <p class="text-lg text-gray-600">Serious questions. Safe practice.</p>
+  </header>
+  
+  <details class="bg-white rounded-lg shadow-md p-4">
+    <summary class="font-semibold cursor-pointer">How to Play</summary>
+    <p class="mt-3 text-gray-600">Take turns drawing cards and answering the questions. Click the card to flip it and reveal the question. After answering, click "Next Card" to continue. You can also choose specific categories if you prefer!</p>
+  </details>
+
+  <div class="grid grid-cols-1 md:grid-cols-[repeat(3,1fr)] gap-0 md:gap-4 items-center">
+    <article class="bg-white p-4 text-center rounded-2xl shadow-md">
+      <h4 class="text-[#2a86f4]" x-text="cardsAnswered"></h4>
+      <div class="text-sm text-[#6c757d]">Cards Answered</div>
+    </article>
+    <article class="bg-white p-4 text-center rounded-2xl shadow-md">
+      <h4 class="text-[#2a86f4]" x-text="currentCategory"></h4>
+      <div class="text-sm text-[#6c757d]">Current Category</div>
+    </article>
+    <article class="bg-white p-4 text-center rounded-2xl shadow-md">
+      <h4 class="text-[#2a86f4]" x-text="`${Math.floor((cardsAnswered / totalCards) * 100)}%`"></h4>
+      <div class="text-sm text-[#6c757d]">Progress</div>
+    </article>
+  </div>
+
+  <div class="progress-bar shadow-sm">
+    <div class="progress-fill" :style="`width: ${(cardsAnswered / totalCards) * 100}%`"></div>
+  </div>
+
+  <!-- Category Progress -->
+  <details class="bg-white rounded-lg shadow-md p-4">
+    <summary class="font-semibold cursor-pointer">Progress by Category:</summary>
+    <div>
+      <hr class="mb-4">
+      <template x-for="category in categories" :key="category">
+        <div class="mb-2">
+          <div class="flex justify-between text-sm text-[#6c757d]">
+            <a class="cursor-pointer no-underline" @click="selectCategory(category)">
+              <span x-show="selectedCategory === category">👉</span>
+              <span class="border-solid border-0 border-b"
+                 :class="{
+                           'text-black font-semibold': selectedCategory === category,
+                           'bg-white text-current': selectedCategory !== category
+                         }"
+                x-text="category"></span>
+              <span x-show="selectedCategory === category">👈</span>
+
+            </a>
+            <span x-text="`${getCategoryProgress(category).answered} / ${getCategoryProgress(category).total}`"></span>
+          </div>
+          <div class="category-progress-bar">
+            <div class="category-progress-fill" :style="`width: ${(getCategoryProgress(category).answered / getCategoryProgress(category).total) * 100}%`"></div>
+          </div>
+        </div>
+      </template>
+    </div>
+  </details>
+  
+  <!-- Card --> 
+  <div>
+    <div class="card-container p-4" @click="flipCard()">
+      <div class="card shadow-md" :class="{ 'flipped': cardFlipped }">
+        <article class="card-front">
+          <div class="text-[4rem] animate-[pulse_2s_infinite] mb-4">🎯</div>
+          <h2 class="text-white text-2xl font-bold mb-2">The Interview</h2>
+          <p class="text-gray-300 text-md font-thin">Click to reveal your prompt</p>
+        </article>
+        <div class="card-back">
+          <span class="absolute text-white text-[0.8rem] font-medium px-3 py-1 rounded-full top-3 right-3 bg-[#2a86f4]" x-text="currentCard.category"></span>
+          <h3 class="text-xl font-semibold mb-2" x-text="currentCard.question"></h3>
+          <p class="text-xs text-gray-400" x-text="categoryTips[currentCard.category] || 'Answer clearly and concisely.'"></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid grid-cols-2 gap-4">
+    <button @click="nextCard()" class="text-white border-[#2a86f4] bg-[#2a86f4]  p-3 rounded-lg font-semibold transition hover:opacity-90 shadow-md">
+      Next Card
+    </button>
+    <button @click="resetGame()" class="bg-gray-200 p-3 rounded-lg font-semibold text-gray-700 transition hover:bg-gray-300 shadow-md">
+      Reset Game
+    </button>
+  </div>
+
+  <footer class="mt-8 text-center text-gray-500">
+    <p class="text-sm flex flex-wrap justify-center items-center gap-2">
+      <span>🎯 <strong>The Interview</strong> — Serious questions, safe practice</span>
+      <span>•</span>
+      <span>Built with 
+        <span aria-hidden="true">
+          <svg class="w-4 text-red-500 mb-1 inline" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="currentColor" d="m12 21.35-1.45-1.32C5.4 15.36 2 12.27 2 8.5 2 5.41 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.08C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.41 22 8.5c0 3.77-3.4 6.86-8.55 11.53Z"></path></svg>
+        </span> by 
+        <a href="https://michaelsboost.com/" target="_blank" rel="noopener noreferrer" class="font-semibold text-gray-600 hover:text-[#2a86f4]">
+          Michael Schwartz
+        </a>
+      </span>
+    </p>
+    <p class="text-sm flex flex-wrap justify-center items-center gap-2">
+      <a href="https://github.com/michaelsboost/CardsOnTheTable" target="_blank" rel="noopener noreferrer" class="font-medium text-gray-600 hover:text-[#2a86f4]">
+        Source on GitHub
+      </a>
+      <span>•</span>
+      <a href="https://github.com/michaelsboost/CardsOnTheTable/issues" target="_blank" rel="noopener noreferrer" class="font-medium text-gray-600 hover:text-[#2a86f4]">
+        Report an Issue
+      </a>
+      <span>•</span>
+      <span class="whitespace-nowrap">No tracking — runs in your browser</span>
+    </p>
+  </footer>
+</main>

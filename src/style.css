@@ -1,0 +1,104 @@
+:root {
+  --primary: #55ddba;
+  --secondary: #0bffc5;
+  --accent: #2a86f4;
+  --dark: #1a1a2e;
+  --light: #f8f9fa;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  color: var(--dark);
+}
+
+.font-brand { 
+  font-family: "DM Serif Display", ui-serif, Georgia, Cambria, "Times New Roman", Times, serif; 
+}
+
+.couple-font {
+  font-family: 'Dancing Script', cursive;
+}
+
+.card-container {
+  perspective: 1000px;
+  margin: 2rem auto;
+}
+
+.card {
+  position: relative;
+  width: 100%;
+  height: 400px;
+  transition: transform 0.8s;
+  transform-style: preserve-3d;
+  cursor: pointer;
+  box-shadow: 0 15px 35px rgba(50, 50, 93, 0.1), 0 5px 15px rgba(0, 0, 0, 0.07);
+  border-radius: 16px;
+}
+
+.card-front, .card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+  border-radius: 16px;
+  text-align: center;
+}
+
+.card-front {
+  background: linear-gradient(135deg, var(--primary), var(--accent));
+  color: white;
+}
+
+.card-back {
+  background: white;
+  color: var(--dark);
+  transform: rotateY(180deg);
+}
+
+.flipped {
+  transform: rotateY(180deg);
+}
+
+.progress-bar {
+  height: 8px;
+  border-radius: 4px;
+  background: #e9ecef;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(to right, var(--primary), var(--accent));
+  border-radius: 4px;
+  transition: width 0.5s ease;
+}
+
+.category-progress-bar {
+  height: 8px;
+  background: #e9ecef;
+  border-radius: 4px;
+  overflow: hidden;
+  margin-top: 4px;
+}
+
+.category-progress-fill {
+  height: 100%;
+  background: linear-gradient(to right, var(--primary), var(--accent));
+  transition: width 0.5s ease;
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+  100% { transform: scale(1); }@import '../libraries/pico.min.css';
+
+  
+@tailwind components;
+@tailwind utilities;
